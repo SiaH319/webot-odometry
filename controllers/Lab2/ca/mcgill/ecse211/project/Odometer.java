@@ -77,27 +77,31 @@ public class Odometer implements Runnable {
     return odo;
   }
 
-  /*
+  /**
    * This method is where the logic for the odometer will run.
+   * @author Sia Ham
    */
   public void run() {
     // TODO Complete the following tasks
     // Reset motor tacho counts to zero
-    
     leftMotor.resetTachoCount();
     rightMotor.resetTachoCount();
+
     while (true) {
       // Update current and previous tacho counts (add 3 more lines)
-      prevTacho[LEFT] = currTacho[LEFT];
+      currTacho[LEFT] = leftMotor.getTachoCount();
+      currTacho[RIGHT] = rightMotor.getTachoCount();
+      prevTacho[LEFT] = currTacho[LEFT]; // save tacho counts for next iteration
+      prevTacho[RIGHT] = currTacho[RIGHT];
 
       // Implement this method below so it updates the deltaPosition
       updateDeltaPosition(prevTacho, currTacho, theta, deltaPosition);
-
       // Update odometer values by completing and calling the relevant method
       updateOdometerValues();
       // Print odometer information to the console
       printPosition();
       // Wait until the next physics step to run the next iteration of the loop
+      waitUntilNextStep();
     }
   }
 
@@ -113,7 +117,7 @@ public class Odometer implements Runnable {
     double dx;
     double dy;
     double dtheta;
-
+    double distL, distR, deltaD, deltaT;
     // TODO Complete the tasks below
     // Calculate changes in x, y, theta based on current and previous tachocounts, then assign them
     dtheta = 0;
@@ -121,9 +125,17 @@ public class Odometer implements Runnable {
     dy = 0;
 
     // Compute L and R wheel and vehicle displacements
+    distL = Math.PI * (currTacho[LEFT] - prevTacho[LEFT]) / 180; //compute wheel displacements
+    distR = Math.PI * (currTacho[RIGHT] - prevTacho[RIGHT]) / 180;
+    deltaD = 0.5 * (distL + distR);   // compute vehicle displacement
 
     // Compute change in heading and x and y components
 
+    deltaT = (distL - distR) / BASE_WIDTH;  //compute changing in heading
+    theta += deltaT;    //update heading
+    dx = deltaD * Math.sin(theta);
+    dy = deltaD * Math.acos(theta);
+    
     // Set deltas like this
     deltas[0] = dx;
     deltas[1] = dy;
@@ -139,9 +151,9 @@ public class Odometer implements Runnable {
     isResetting = true;
     try {
       x += deltaPosition[0];
-
-      // TODO Update y and theta. Remember to keep theta within 360 degrees
-
+      y += deltaPosition[1];
+      theta += deltaPosition[2];
+      // TODO Update y and theta. Remember to keep theta within 360 degrees //
       isResetting = false;
       doneResetting.signalAll(); // Let the other threads know we are done resetting
     } finally {
@@ -158,7 +170,7 @@ public class Odometer implements Runnable {
     System.out.println("Print odometer x, y, theta here"); 
     System.out.println("x:" + getXyt()[0] 
         + "  y:" + getXyt()[1]
-        + "  theta:" + getXyt()[2]);
+            + "  theta:" + getXyt()[2]);
     lock.unlock();
   }
 
@@ -184,7 +196,6 @@ public class Odometer implements Runnable {
     } finally {
       lock.unlock();
     }
-
     return position;
   }
 
@@ -209,7 +220,7 @@ public class Odometer implements Runnable {
       lock.unlock();
     }
   }
-  
+
   /**
    * Overwrites x. Use for odometry correction.
    * 
@@ -252,7 +263,6 @@ public class Odometer implements Runnable {
    */
   public void setTheta(double theta) {
     // TODO //
-
     lock.lock();
     isResetting = true;
     try {
