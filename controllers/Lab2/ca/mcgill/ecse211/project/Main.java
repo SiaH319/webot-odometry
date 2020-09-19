@@ -31,7 +31,7 @@ public class Main {
     
     // TODO Start the odometer thread (1 line)
     //new Thread(new Odometer()).start();
-       
+       testcode
     // Start the square driver, which internally starts a thread
     SquareDriver.drive();
 
