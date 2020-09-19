@@ -1,5 +1,7 @@
 package ca.mcgill.ecse211.project;
 
+//Hello
+
 import static ca.mcgill.ecse211.project.Resources.*;
 import static simlejos.ExecutionController.*;
 
