@@ -19,24 +19,24 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Olivier St-Martin Cormier
  */
 public class Odometer implements Runnable {
-  
+
   /** The x-axis position in meters. */
   private volatile double x;
-  
+
   /** The y-axis position in meters. */
   private volatile double y;
-  
+
   /** The orientation (heading) in degrees. */
   private volatile double theta;
-  
+
   /** The instantaneous change in position (dx, dy, dTheta). */
   private static double[] deltaPosition = new double[3];
 
   // Thread control tools
-  
+
   /**  Fair lock for concurrent writing. */
   private static Lock lock = new ReentrantLock(true);
-  
+
   /** Indicates if a thread is trying to reset any position parameters. */
   private volatile boolean isResetting = false;
 
@@ -51,7 +51,7 @@ public class Odometer implements Runnable {
   private static int[] prevTacho = new int[2];
   /** The current motor tacho counts. */
   private static int[] currTacho = new int[2];
-  
+
   private static final int LEFT = 0;
   private static final int RIGHT = 1;
 
@@ -61,13 +61,13 @@ public class Odometer implements Runnable {
    * cannot be accessed externally.
    */
   private Odometer() { 
-    // TODO Set the robot starting point here  
+    // TODO Set the robot starting point here //
     setXyt(0, 0, 0);
   }
 
   /**
    * Returns the Odometer Object. Use this method to obtain an instance of Odometer.
-   * 
+   * @author Sia Ham
    * @return the Odometer Object
    */
   public static synchronized Odometer getOdometer() {
@@ -84,6 +84,8 @@ public class Odometer implements Runnable {
     // TODO Complete the following tasks
     // Reset motor tacho counts to zero
     
+    leftMotor.resetTachoCount();
+    rightMotor.resetTachoCount();
     while (true) {
       // Update current and previous tacho counts (add 3 more lines)
       prevTacho[LEFT] = currTacho[LEFT];
@@ -92,13 +94,13 @@ public class Odometer implements Runnable {
       updateDeltaPosition(prevTacho, currTacho, theta, deltaPosition);
 
       // Update odometer values by completing and calling the relevant method
-
+      updateOdometerValues();
       // Print odometer information to the console
-
+      printPosition();
       // Wait until the next physics step to run the next iteration of the loop
     }
   }
-  
+
   /**
    * Updates the robot deltaPosition (x, y, theta) given the motor tacho counts.
    * 
@@ -111,7 +113,7 @@ public class Odometer implements Runnable {
     double dx;
     double dy;
     double dtheta;
-    
+
     // TODO Complete the tasks below
     // Calculate changes in x, y, theta based on current and previous tachocounts, then assign them
     dtheta = 0;
@@ -119,7 +121,7 @@ public class Odometer implements Runnable {
     dy = 0;
 
     // Compute L and R wheel and vehicle displacements
-    
+
     // Compute change in heading and x and y components
 
     // Set deltas like this
@@ -127,7 +129,7 @@ public class Odometer implements Runnable {
     deltas[1] = dy;
     deltas[2] = (180 * dtheta) / Math.PI; // convert to degrees
   }
-  
+
   /**
    * Increments the current values of the x, y and theta instance variables using deltaPositions.
    * Useful for odometry.
@@ -137,9 +139,9 @@ public class Odometer implements Runnable {
     isResetting = true;
     try {
       x += deltaPosition[0];
-      
+
       // TODO Update y and theta. Remember to keep theta within 360 degrees
-      
+
       isResetting = false;
       doneResetting.signalAll(); // Let the other threads know we are done resetting
     } finally {
@@ -152,11 +154,14 @@ public class Odometer implements Runnable {
    */
   public void printPosition() {
     lock.lock();
-    // TODO
+    // TODO //
     System.out.println("Print odometer x, y, theta here"); 
+    System.out.println("x:" + getXyt()[0] 
+        + "  y:" + getXyt()[1]
+        + "  theta:" + getXyt()[2]);
     lock.unlock();
   }
-  
+
   /**
    * Returns the Odometer data.
    * 
@@ -191,9 +196,20 @@ public class Odometer implements Runnable {
    * @param theta the value of theta in degrees
    */
   public void setXyt(double x, double y, double theta) {
-    // TODO Complete based on setX() method below
+    // TODO Complete based on setX() method below // 
+    lock.lock();
+    isResetting = true;
+    try {
+      this.x = x;
+      this.y = y;
+      this.theta = theta;
+      isResetting = false;
+      doneResetting.signalAll();
+    } finally {
+      lock.unlock();
+    }
   }
-
+  
   /**
    * Overwrites x. Use for odometry correction.
    * 
@@ -217,7 +233,16 @@ public class Odometer implements Runnable {
    * @param y the value of y
    */
   public void setY(double y) {
-    // TODO
+    // TODO //
+    lock.lock();
+    isResetting = true;
+    try {
+      this.y = y;
+      isResetting = false;
+      doneResetting.signalAll();
+    } finally {
+      lock.unlock();
+    }
   }
 
   /**
@@ -226,7 +251,17 @@ public class Odometer implements Runnable {
    * @param theta the value of theta
    */
   public void setTheta(double theta) {
-    // TODO
-  }
+    // TODO //
 
+    lock.lock();
+    isResetting = true;
+    try {
+      this.theta = theta;
+      isResetting = false;
+      doneResetting.signalAll();
+    } finally {
+      lock.unlock();
+    }
+
+  }
 }
