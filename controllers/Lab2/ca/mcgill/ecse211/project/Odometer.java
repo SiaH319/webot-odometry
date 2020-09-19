@@ -60,7 +60,7 @@ public class Odometer implements Runnable {
    * This is the default constructor of this class. It initiates all motors and variables once. It
    * cannot be accessed externally.
    */
-  private Odometer() {
+  private Odometer() { 
     // TODO Set the robot starting point here  
     setXyt(0, 0, 0);
   }
