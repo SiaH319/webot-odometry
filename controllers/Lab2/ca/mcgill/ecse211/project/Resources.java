@@ -16,16 +16,16 @@ public class Resources {
   // TODO Adjust the following parameters based on your robot
   
   /** The wheel radius in meters. */
-  public static final double WHEEL_RAD = 0;
+  public static final double WHEEL_RAD = 0.021465;
   
-  /** The robot width in meters. */
-  public static final double BASE_WIDTH = 0;
+  /** The robot width in meters. WE NEED TO FIND THIS VALUE STILL, BELOW IS RANDOM NUMBER FOR TESTING*/
+  public static final double BASE_WIDTH = 0.15;
   
   /** The speed at which the robot moves forward in degrees per second. */
-  public static final int FORWARD_SPEED = 0;
+  public static final int FORWARD_SPEED = 400;
   
   /** The speed at which the robot rotates in degrees per second. */
-  public static final int ROTATE_SPEED = 0;
+  public static final int ROTATE_SPEED = 150;
   
   /** The motor acceleration in degrees per second squared. */
   public static final int ACCELERATION = 3000;
