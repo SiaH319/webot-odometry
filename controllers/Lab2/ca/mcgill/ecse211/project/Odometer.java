@@ -169,7 +169,7 @@ public class Odometer implements Runnable {
   public void printPosition() {
     lock.lock();
     // TODO //
-    System.out.println("X:" + x + " Y:" + y + " theta:" + theta + "/n"); 
+    System.out.println("X:" + x + " Y:" + y + " theta:" + theta); 
 
     lock.unlock();
   }
