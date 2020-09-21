@@ -89,13 +89,14 @@ public class Odometer implements Runnable {
 
     while (true) {
       // Update current and previous tacho counts (add 3 more lines)
-      currTacho[LEFT] = leftMotor.getTachoCount();
-      currTacho[RIGHT] = rightMotor.getTachoCount();
       prevTacho[LEFT] = currTacho[LEFT]; // save tacho counts for next iteration
       prevTacho[RIGHT] = currTacho[RIGHT];
-
+      currTacho[LEFT] = leftMotor.getTachoCount();
+      currTacho[RIGHT] = rightMotor.getTachoCount();
+      
       // Implement this method below so it updates the deltaPosition
       updateDeltaPosition(prevTacho, currTacho, theta, deltaPosition);
+      
       // Update odometer values by completing and calling the relevant method
       updateOdometerValues();
       // Print odometer information to the console
@@ -125,16 +126,15 @@ public class Odometer implements Runnable {
     dy = 0;
 
     // Compute L and R wheel and vehicle displacements
-    distL = Math.PI * (currTacho[LEFT] - prevTacho[LEFT]) / 180; //compute wheel displacements
-    distR = Math.PI * (currTacho[RIGHT] - prevTacho[RIGHT]) / 180;
+    distL = Math.PI * WHEEL_RAD * (currTacho[LEFT] - prevTacho[LEFT]) / 180; 
+    distR = Math.PI * WHEEL_RAD * (currTacho[RIGHT] - prevTacho[RIGHT]) / 180;
     deltaD = 0.5 * (distL + distR);   // compute vehicle displacement
 
     // Compute change in heading and x and y components
-
-    deltaT = (distL - distR) / BASE_WIDTH;  //compute changing in heading
-    theta += deltaT;    //update heading
+    dtheta = (distL - distR) / BASE_WIDTH;  //compute changing in heading
+    theta += dtheta;    //update heading
     dx = deltaD * Math.sin(theta);
-    dy = deltaD * Math.acos(theta);
+    dy = deltaD * Math.cos(theta);
     
     // Set deltas like this
     deltas[0] = dx;
@@ -152,7 +152,9 @@ public class Odometer implements Runnable {
     try {
       x += deltaPosition[0];
       y += deltaPosition[1];
-      theta += deltaPosition[2];
+      theta = (theta + (360 + deltaPosition[2]) % 360) % 360; 
+      // keeps the updates within 360 degrees
+
       // TODO Update y and theta. Remember to keep theta within 360 degrees //
       isResetting = false;
       doneResetting.signalAll(); // Let the other threads know we are done resetting
@@ -167,10 +169,8 @@ public class Odometer implements Runnable {
   public void printPosition() {
     lock.lock();
     // TODO //
-    System.out.println("Print odometer x, y, theta here"); 
-    System.out.println("x:" + getXyt()[0] 
-        + "  y:" + getXyt()[1]
-            + "  theta:" + getXyt()[2]);
+    System.out.println("X:" + x + " Y:" + y + " theta:" + theta + "/n"); 
+
     lock.unlock();
   }
 

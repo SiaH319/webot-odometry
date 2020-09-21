@@ -7,7 +7,7 @@ import static simlejos.ExecutionController.*;
  * This class is used to drive the robot on the demo floor.
  */
 public class SquareDriver {
-  
+
   /** The length of the size of the square in tiles. Ranges from 3 to 6 (inclusive). */
   public static final int SQUARE_LENGTH = 4;
 
@@ -36,7 +36,7 @@ public class SquareDriver {
       stopMotors();
     }).start();
   }
-  
+
   /**
    * Moves the robot straight for the given distance.
    * 
@@ -44,14 +44,12 @@ public class SquareDriver {
    */
   public static void moveStraightFor(double distance) {
     // TODO
-       
-       leftMotor.rotate(convertDistance(TILE_SIZE * distance), true);
-       rightMotor.rotate(convertDistance(TILE_SIZE * distance), false);
-       
-     }
-    
-  
-  
+    leftMotor.rotate(convertDistance(TILE_SIZE * distance), true);
+    rightMotor.rotate(convertDistance(TILE_SIZE * distance), false);
+  }
+
+
+
   /**
    * Turns the robot by a specified angle. Note that this method is different from
    * {@code Navigation.turnTo()}. For example, if the robot is facing 90 degrees, calling
@@ -62,12 +60,12 @@ public class SquareDriver {
    */
   public static void turnBy(double angle) {
     // TODO Hint: similar to moveStraightFor(), but use a minus sign
-  
-      leftMotor.rotate(convertAngle(angle), true);
-      rightMotor.rotate(-convertAngle(angle), false);
-    
+
+    leftMotor.rotate(convertAngle(angle), true);
+    rightMotor.rotate(-convertAngle(angle), false);
+
   }
-  
+
   /**
    * Converts input distance to the total rotation of each wheel needed to cover that distance.
    * 
@@ -90,7 +88,7 @@ public class SquareDriver {
     // TODO Compute and return the correct value. Hint: you can reuse convertDistance()
     return convertDistance((BASE_WIDTH * Math.PI * angle) / 360);
   }
-  
+
   /**
    * Stops both motors.
    */
@@ -98,7 +96,7 @@ public class SquareDriver {
     leftMotor.stop();
     rightMotor.stop();
   }
-  
+
   /**
    * Sets the speed of both motors to the same values.
    * 
@@ -106,11 +104,9 @@ public class SquareDriver {
    */
   public static void setSpeed(int speed) {
     // TODO Implement this by reusing an existing method (1 line)
-  
     setSpeeds(speed, speed);
-  
   }
-  
+
   /**
    * Sets the speed of both motors to different values.
    * 
@@ -119,12 +115,12 @@ public class SquareDriver {
    */
   public static void setSpeeds(int leftSpeed, int rightSpeed) {
     // TODO
-    
+
     leftMotor.setSpeed(leftSpeed);
     rightMotor.setSpeed(rightSpeed);
-    
+
   }
-  
+
   /**
    * Sets the acceleration of both motors.
    * 
@@ -132,10 +128,10 @@ public class SquareDriver {
    */
   public static void setAcceleration(int acceleration) {
     // TODO
-    
+
     leftMotor.setAcceleration(acceleration);
     rightMotor.setAcceleration(acceleration);
-    
+
   }
 
 }

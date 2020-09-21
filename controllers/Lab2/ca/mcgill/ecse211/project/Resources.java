@@ -18,11 +18,12 @@ public class Resources {
   /** The wheel radius in meters. */
   public static final double WHEEL_RAD = 0.021465;
   
-  /** The robot width in meters. WE NEED TO FIND THIS VALUE STILL, BELOW IS RANDOM NUMBER FOR TESTING*/
-  public static final double BASE_WIDTH = 0.15;
+  /** The robot width in meters. 
+   * WE NEED TO FIND THIS VALUE STILL, BELOW IS RANDOM NUMBER FOR TESTING*/
+  public static final double BASE_WIDTH = 0.16232;
   
   /** The speed at which the robot moves forward in degrees per second. */
-  public static final int FORWARD_SPEED = 400;
+  public static final int FORWARD_SPEED = 250;
   
   /** The speed at which the robot rotates in degrees per second. */
   public static final int ROTATE_SPEED = 150;
