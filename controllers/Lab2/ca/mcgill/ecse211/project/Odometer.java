@@ -93,10 +93,10 @@ public class Odometer implements Runnable {
       prevTacho[RIGHT] = currTacho[RIGHT];
       currTacho[LEFT] = leftMotor.getTachoCount();
       currTacho[RIGHT] = rightMotor.getTachoCount();
-      
+
       // Implement this method below so it updates the deltaPosition
       updateDeltaPosition(prevTacho, currTacho, theta, deltaPosition);
-      
+
       // Update odometer values by completing and calling the relevant method
       updateOdometerValues();
       // Print odometer information to the console
@@ -132,9 +132,9 @@ public class Odometer implements Runnable {
 
     // Compute change in heading and x and y components
     dtheta = (distL - distR) / BASE_WIDTH;  //compute changing in heading
-    dx = deltaD * Math.cos(Math.toRadians(theta+(180 * dtheta) / Math.PI));
+    dx = deltaD * Math.sin(Math.toRadians(theta+(180 * dtheta) / Math.PI));
     dy = deltaD * Math.cos(Math.toRadians(theta+(180 * dtheta) / Math.PI));
-    
+
     // Set deltas like this
     deltas[0] = dx;
     deltas[1] = dy;
@@ -168,7 +168,10 @@ public class Odometer implements Runnable {
   public void printPosition() {
     lock.lock();
     // TODO //
-    System.out.println("X:" + x + " Y:" + y + " theta:" + theta); 
+    String strX = String.format("%.2f", x);
+    String strY = String.format("%.2f", y);
+    String strT = String.format("%.2f", theta);
+    System.out.println("X:" + strX + " Y:" + strY + " theta:" + strT); 
 
     lock.unlock();
   }
