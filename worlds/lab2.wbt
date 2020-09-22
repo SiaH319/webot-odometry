@@ -15,8 +15,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.9185493298075919 -0.22982853811263076 -0.3216301785887557 4.606188253521216
-  position 1.867566725668268 1.2609456950223037 2.0207043678851293
+  orientation -0.9940476870676627 -0.10881663105235224 0.00530439834912144 1.3187649056914834
+  position 0.8107303851923705 4.507679911472996 2.368428358782652
 }
 DPM-Floor {
   dimension 7 7
@@ -37,25 +37,12 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 DPM-Robot {
-<<<<<<< HEAD
-  hidden position_2_0 7.303778712437592
-  hidden rotation_3 -0.9839243148552627 0.04590948375285227 -0.172584072087051 3.0551514702019307
-  hidden rotation_5 1 0 0 2.947584338683269
-  hidden rotation_8 -1 0 0 5.4177368405430615
-  translation 1.9836 0.0550206 1.96871
-  rotation -0.021009823157115786 -0.9995630023603993 0.02079402902689112 -1.5621842145580267
-=======
-  hidden position_2_0 42.55191664779452
-  hidden translation_3 -0.0003784905233027436 1.1351528474611017e-05 -9.267394858841153e-05
-  hidden rotation_3 -0.4622010914095676 0.8628930960454597 0.20441540034176808 1.1763092382989797
-  hidden translation_5 7.283757585130312e-07 4.312572273531478e-05 3.41664431183551e-05
-  hidden rotation_5 -0.9999999999992948 -1.0565588933513641e-06 5.420822771949996e-07 0.8536772815974358
-  hidden rotation_8 -0.9999999999999999 0 0 0.963598012004421
-  translation 0.433714 0.0697902 0.472736
-  rotation 0 1 0 -1.57
->>>>>>> 9f2001fe30656a82bcd5ef3982f4f10938b38bfe
+  hidden translation_3 0 -0.0050181323864561 0
+  hidden rotation_3 -0.35035784631950456 0.134694330572451 -0.9268801523573572 4.568763430489877
+  translation 1.9808 0.0544611 1.96947
+  rotation 0 1 0 1.57
   children [
-    robot2_base_asm-solid {
+    robot1_base_asm-solid {
       translation 0 -0.003 -0.032
       rotation 1 0 0 -1.57
     }
@@ -67,7 +54,7 @@ DPM-Robot {
       name "A"
       translation -0.05 -0.02 -0.022
       rotation 1 0 0 -1.57
-      position 8016.38198021824
+      position 7705.170299197944
       children [
         Wheel {
           translation -0.02 0 0
@@ -79,7 +66,7 @@ DPM-Robot {
       name "D"
       translation 0.05 -0.02 -0.022
       rotation 1 0 0 -1.57
-      position 7921.411412577651
+      position 7652.099892835566
       children [
         Wheel {
           translation 0.02 0 0
@@ -88,7 +75,7 @@ DPM-Robot {
       ]
     }
     EV3 {
-      rotation 1 0 0 -1.57
+      rotation 1 0 0 -1.5708
     }
   ]
   controller "Lab2"
