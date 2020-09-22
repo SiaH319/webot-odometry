@@ -118,7 +118,7 @@ public class Odometer implements Runnable {
     double dx;
     double dy;
     double dtheta;
-    double distL, distR, deltaD, deltaT;
+
     // TODO Complete the tasks below
     // Calculate changes in x, y, theta based on current and previous tachocounts, then assign them
     dtheta = 0;
@@ -126,14 +126,14 @@ public class Odometer implements Runnable {
     dy = 0;
 
     // Compute L and R wheel and vehicle displacements
-    distL = Math.PI * WHEEL_RAD * (currTacho[LEFT] - prevTacho[LEFT]) / 180; 
-    distR = Math.PI * WHEEL_RAD * (currTacho[RIGHT] - prevTacho[RIGHT]) / 180;
-    deltaD = 0.5 * (distL + distR);   // compute vehicle displacement
+    double distL = Math.PI * WHEEL_RAD * (currTacho[LEFT] - prevTacho[LEFT]) / 180; 
+    double distR = Math.PI * WHEEL_RAD * (currTacho[RIGHT] - prevTacho[RIGHT]) / 180;
+    double deltaD = 0.5 * (distL + distR);   // compute vehicle displacement
 
     // Compute change in heading and x and y components
     dtheta = (distL - distR) / BASE_WIDTH;  //compute changing in heading
-    dx = deltaD * Math.sin(Math.toRadians(theta+(180 * dtheta) / Math.PI));
-    dy = deltaD * Math.cos(Math.toRadians(theta+(180 * dtheta) / Math.PI));
+    dx = deltaD * Math.sin(Math.toRadians(theta + (180 * dtheta) / Math.PI));
+    dy = deltaD * Math.cos(Math.toRadians(theta + (180 * dtheta) / Math.PI));
 
     // Set deltas like this
     deltas[0] = dx;
@@ -274,6 +274,5 @@ public class Odometer implements Runnable {
     } finally {
       lock.unlock();
     }
-
   }
 }
