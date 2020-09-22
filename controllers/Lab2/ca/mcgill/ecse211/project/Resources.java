@@ -20,7 +20,7 @@ public class Resources {
   
   /** The robot width in meters. 
    * WE NEED TO FIND THIS VALUE STILL, BELOW IS RANDOM NUMBER FOR TESTING*/
-  public static final double BASE_WIDTH = 0.16256;
+  public static final double BASE_WIDTH = 0.1526665;
   
   /** The speed at which the robot moves forward in degrees per second. */
   public static final int FORWARD_SPEED = 250;
