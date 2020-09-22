@@ -132,9 +132,8 @@ public class Odometer implements Runnable {
 
     // Compute change in heading and x and y components
     dtheta = (distL - distR) / BASE_WIDTH;  //compute changing in heading
-    theta += dtheta;    //update heading
-    dx = deltaD * Math.sin(theta);
-    dy = deltaD * Math.cos(theta);
+    dx = deltaD * Math.cos(Math.toRadians(theta+(180 * dtheta) / Math.PI));
+    dy = deltaD * Math.cos(Math.toRadians(theta+(180 * dtheta) / Math.PI));
     
     // Set deltas like this
     deltas[0] = dx;
