@@ -15,8 +15,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.9940476870676627 -0.10881663105235224 0.00530439834912144 1.3187649056914834
-  position 0.8107303851923705 4.507679911472996 2.368428358782652
+  orientation -0.5360630008440935 0.6395121780505667 0.5510541110009485 1.8625726960225715
+  position 2.8701929250496137 5.627483732508252 1.2946979827282594
 }
 DPM-Floor {
   dimension 7 7
@@ -37,10 +37,13 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 DPM-Robot {
-  hidden translation_3 0 -0.0050181323864561 0
-  hidden rotation_3 -0.35035784631950456 0.134694330572451 -0.9268801523573572 4.568763430489877
-  translation 1.9808 0.0544611 1.96947
-  rotation 0 1 0 1.57
+  hidden position_2_0 -24.55969295808583
+  hidden translation_3 -0.00011950274583564896 7.465227424639434e-06 -0.0003596442391002107
+  hidden rotation_3 0.661524750384624 0.5095348928982972 0.5502355836800107 2.977401109776437
+  hidden rotation_5 -1 0 0 2.609190326014199
+  hidden rotation_8 -1 0 0 6.088970521213907
+  translation 1.99385 0.0525818 1.95901
+  rotation 0.020523138595074653 0.9995790757412479 -0.020505416905781466 1.5704667669475205
   children [
     robot1_base_asm-solid {
       translation 0 -0.003 -0.032
@@ -54,7 +57,7 @@ DPM-Robot {
       name "A"
       translation -0.05 -0.02 -0.022
       rotation 1 0 0 -1.57
-      position 7705.170299197944
+      position 7705.170300885841
       children [
         Wheel {
           translation -0.02 0 0
@@ -66,7 +69,7 @@ DPM-Robot {
       name "D"
       translation 0.05 -0.02 -0.022
       rotation 1 0 0 -1.57
-      position 7652.099892835566
+      position 7652.099894536018
       children [
         Wheel {
           translation 0.02 0 0
